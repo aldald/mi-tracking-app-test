@@ -1,0 +1,28 @@
+CREATE DATABASE IF NOT EXISTS smi_tracking;
+USE smi_tracking;
+
+CREATE TABLE IF NOT EXISTS shops (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    shop_domain VARCHAR(255) NOT NULL UNIQUE,
+    access_token VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    shop VARCHAR(255) NOT NULL,
+    order_id VARCHAR(255) NOT NULL UNIQUE,
+    order_number VARCHAR(50),
+    amount DECIMAL(10,2),
+    currency VARCHAR(10),
+    discount_codes JSON,
+    status VARCHAR(50) DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS discount_codes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(255) NOT NULL UNIQUE,
+    shopify_id VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
